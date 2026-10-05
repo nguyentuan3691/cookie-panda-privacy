@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cookie Panda privacy policy</title>
+    <style>
+      :root {
+        --fg: #1c2a1f;
+        --muted: #4b5a4e;
+        --bg: #fbfcfa;
+        --rule: #d8e0d6;
+        --accent: #2f6b34;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --fg: #e6ece5;
+          --muted: #b3c0b2;
+          --bg: #141a15;
+          --rule: #2f3a30;
+          --accent: #8fd18f;
+        }
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--fg);
+        font:
+          16px/1.6 system-ui,
+          -apple-system,
+          'Segoe UI',
+          sans-serif;
+      }
+      main {
+        max-width: 42rem;
+        margin: 0 auto;
+        padding: 2.5rem 1rem 4rem;
+      }
+      h1 {
+        font-size: 1.75rem;
+        margin: 0 0 0.25rem;
+      }
+      h2 {
+        font-size: 1.15rem;
+        margin: 2rem 0 0.5rem;
+        color: var(--accent);
+      }
+      p,
+      li {
+        color: var(--fg);
+      }
+      .meta {
+        color: var(--muted);
+        margin: 0 0 2rem;
+      }
+      hr {
+        border: 0;
+        border-top: 1px solid var(--rule);
+        margin: 2.5rem 0;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Cookie Panda privacy policy</h1>
+      <p class="meta">
+        Last updated: 5 October 2026 · Applies to the Cookie Panda Chrome extension
+      </p>
+
+      <p>
+        <strong>In short:</strong> Cookie Panda has no server and sends your data nowhere. It never
+        leaves your computer except in a file or clipboard text that you create and move yourself.
+      </p>
+
+      <h2>What the extension handles</h2>
+      <p>
+        When you press <em>Export</em>, Cookie Panda reads the sites of your open tabs (all of them,
+        or only the current tab's site, as you choose), and then you pick which sites go into the
+        file. For those sites it reads:
+      </p>
+      <ul>
+        <li>cookies, including sign-in and session cookies;</li>
+        <li>the sites' localStorage, sessionStorage and IndexedDB;</li>
+        <li>
+          the addresses of your open tabs, to find the sites. Only each site's origin (for example
+          <code>https://example.com</code>) goes into the file, never a page address or title.
+        </li>
+      </ul>
+      <p>
+        The file also records when it was made, the browser's user agent, the Chrome version and the
+        extension version, so another copy of Cookie Panda can check it can read the file.
+      </p>
+      <p>
+        When you press <em>Import</em>, it writes the contents of a Cookie Panda file into the
+        browser you are using.
+      </p>
+      <p>
+        This data is sign-in information: anyone who holds it can use your accounts. That is why the
+        extension treats it as a secret.
+      </p>
+
+      <h2>Where the data goes</h2>
+      <ul>
+        <li>
+          <strong>Nowhere over the network.</strong> The extension contains no analytics, no
+          tracking and no server, and it never sends your data to the developer or to anyone else.
+          It does make the chosen sites' own pages load in your browser (see "Tabs" below), just as
+          if you opened them.
+        </li>
+        <li>
+          <strong>Into a file or the clipboard, only when you ask.</strong> The file is encrypted by
+          default (AES-256-GCM, key derived from your password with PBKDF2-SHA256, 600,000
+          iterations). You can turn encryption off; the extension then shows a warning, because a
+          plain file can be read by anyone who gets it.
+        </li>
+        <li>
+          <strong>Your password is never stored.</strong> It is kept only in the open panel's memory
+          while you use it, and is gone when the panel is reset or closed.
+        </li>
+      </ul>
+
+      <h2>What the extension keeps</h2>
+      <ul>
+        <li>
+          While an export or import runs, a progress record is kept in Chrome's session storage,
+          which lives in memory and is cleared when the browser closes. It holds the site addresses,
+          counts and the tabs being used, but no cookies or site data.
+        </li>
+        <li>
+          Your choices in the panel (language, which data types to include, whether to encrypt) are
+          kept in the extension's own local storage. They contain no cookies or site data.
+        </li>
+        <li>
+          While the panel stays open after an export, it keeps the finished file in memory so you
+          can save or copy it again (unencrypted if you turned encryption off). Closing or resetting
+          the panel drops it.
+        </li>
+      </ul>
+
+      <h2>Why it asks for its permissions</h2>
+      <ul>
+        <li>
+          <strong>Read and change your data on all websites, cookies:</strong> to read and write the
+          cookies and storage of the sites you export or import, which can be any site.
+        </li>
+        <li>
+          <strong>Tabs:</strong> to find the sites open in your browser. Export reloads a tab that
+          Chrome has unloaded, so its storage can be read. Import opens background tabs of the
+          imported sites (site storage can only be written from that site's page), loading the
+          site's <code>robots.txt</code> or home page, and closes them afterwards, except a tab kept
+          open for a site's sessionStorage.
+        </li>
+        <li><strong>Scripting:</strong> to run the extension's own script inside those pages.</li>
+        <li>
+          <strong>Debugger:</strong> only as a fallback, for tabs Chrome has frozen (which it wakes
+          up) or pages that block injected scripts. It runs the extension's own bundled script, only
+          on the sites being exported or imported, and detaches when done (it also detaches any of
+          its own sessions left over after a restart). Chrome may show a "being debugged" bar for a
+          few seconds.
+        </li>
+        <li>
+          <strong>Storage, side panel:</strong> the progress record above, and the panel itself.
+        </li>
+      </ul>
+
+      <h2>Sharing and selling</h2>
+      <p>
+        The developer does not receive your data, so it is never sold, shared, used for advertising,
+        or used for anything other than copying your sign-in state where you choose.
+      </p>
+
+      <h2>Your control</h2>
+      <p>
+        Nothing happens until you press Export or Import. Uninstalling the extension removes its
+        settings. Files you exported remain wherever you saved them; delete them when you no longer
+        need them.
+      </p>
+
+      <h2>Changes and contact</h2>
+      <p>
+        If this policy changes, the date above will change with it. Questions:
+        <a href="mailto:nguyentuan3691@gmail.com">nguyentuan3691@gmail.com</a>.
+      </p>
+
+      <hr />
+      <p class="meta">
+        Chính sách quyền riêng tư (tóm tắt tiếng Việt): Cookie Panda không có máy chủ và không gửi
+        dữ liệu qua mạng. Cookie và dữ liệu site chỉ được đọc khi bạn bấm Export, và chỉ đi vào file
+        hoặc clipboard do bạn tự tạo và tự mang đi. File được mã hoá mặc định; mật khẩu không bao
+        giờ được lưu. Nhà phát triển không nhận, không bán và không chia sẻ dữ liệu của bạn.
+      </p>
+    </main>
+  </body>
+</html>
