@@ -64,7 +64,7 @@
     <main>
       <h1>Cookie Panda privacy policy</h1>
       <p class="meta">
-        Last updated: 5 October 2026 · Applies to the Cookie Panda Chrome extension
+        Last updated: 8 October 2026 · Applies to the Cookie Panda Chrome extension
       </p>
 
       <p>
@@ -124,16 +124,64 @@
         <li>
           While an export or import runs, a progress record is kept in Chrome's session storage,
           which lives in memory and is cleared when the browser closes. It holds the site addresses,
-          counts and the tabs being used, but no cookies or site data.
+          counts and the tabs being used, but no cookies or site data. When you press a keyboard
+          shortcut (quick export, or open Profiles) or pick an item in the right-click menu, the
+          window number, the time and which item you chose (this site, all sites, import, open
+          Profiles, or the id of the profile to switch to) are kept there for a few seconds, until
+          the panel picks the request up.
         </li>
         <li>
-          Your choices in the panel (language, which data types to include, whether to encrypt) are
-          kept in the extension's own local storage. They contain no cookies or site data.
+          Your choices in the panel (language, which data types to include, whether to encrypt, and
+          similar options such as fast import, skipping Google data or the last open tab) and the
+          named site lists you save as templates are kept in the extension's own local storage. A
+          template holds site addresses only. If you use Profiles, the colour you give each profile
+          and the sort order of the list are kept there too (a profile's internal id and a colour
+          number, no name), and Chrome's extension storage keeps the ids of the profiles listed in
+          the right-click menu so the menu can be cleaned up. None of this contains cookies or site
+          data, and you can delete a template in the panel at any time.
         </li>
         <li>
           While the panel stays open after an export, it keeps the finished file in memory so you
           can save or copy it again (unencrypted if you turned encryption off). Closing or resetting
           the panel drops it.
+        </li>
+        <li>
+          While the panel stays open after an import, it keeps in memory a copy of the cookies and
+          localStorage that the import replaced on this browser, so that you can undo the import.
+          This copy is never written to disk or sent anywhere; closing or resetting the panel drops
+          it.
+        </li>
+        <li>
+          <strong>Profiles, only if you use them.</strong> When you save a profile, the extension
+          keeps a snapshot of this browser's cookies and the data of the sites open in tabs (Google
+          account sites excluded, unless you turn on "Profiles include the Google sign-in") and the
+          list of open tab addresses, in the extension's own storage on this computer (IndexedDB).
+          The snapshot is encrypted with AES-256-GCM under a key protected by your vault password
+          (PBKDF2-SHA256, 600,000 iterations). Profile names, save times and counts are stored
+          unencrypted. The password is never stored. After you unlock the vault, its key is kept in
+          Chrome's session storage, which lives in memory and is cleared when the browser closes;
+          "Lock" clears it sooner. A deleted profile is kept in the open panel's memory only, so you
+          can undo the delete. Switching to another profile first saves the current state into the
+          profile in use, then closes the web tabs and clears this browser's browsing data (see
+          "Browsing data" below) before restoring the other profile. Cookies of every site are saved
+          first, but site data (localStorage, IndexedDB and so on) only for the sites open in tabs:
+          the stored data of other sites is cleared and cannot be brought back. While a switch runs,
+          a record of which profiles it goes between and how far it got (no cookies or site data) is
+          kept in the same storage, so an interrupted switch can be continued or cancelled. "View"
+          decrypts a profile in the panel's memory only, to list its sites and counts. You can save
+          a profile to a .cpanda file (encrypted by default with the password you type, like an
+          export; it holds no list of tabs) or import a .cpanda file as a new profile, which is then
+          stored encrypted in the vault like any other. Once you unlock the vault, the names of your
+          profiles are shown in a "Switch to profile" item of Chrome's right-click menu; locking the
+          vault in the panel removes them, and after Chrome restarts they are removed the next time
+          the panel opens. Picking one while the vault is locked only asks you to unlock it. While a
+          switch runs, a short lock record (a random token, the time and the job number) is kept in
+          session storage so two windows cannot switch at once. Nothing of this is sent anywhere.
+        </li>
+        <li>
+          Before an import, the panel reads this browser's cookies for the sites in the file to show
+          which ones are new, changed or identical. The comparison happens in the panel's memory and
+          is not kept.
         </li>
       </ul>
 
@@ -148,7 +196,18 @@
           Chrome has unloaded, so its storage can be read. Import opens background tabs of the
           imported sites (site storage can only be written from that site's page), loading the
           site's <code>robots.txt</code> or home page, and closes them afterwards, except a tab kept
-          open for a site's sessionStorage.
+          open for a site's sessionStorage. Saving a profile records the addresses of the open tabs,
+          encrypted, inside that profile; switching profiles closes the web tabs and reopens the
+          other profile's tabs.
+        </li>
+        <li>
+          <strong>Browsing data:</strong> only when you switch profiles, after the current state was
+          saved encrypted in the vault. It clears websites' local storage, IndexedDB, Cache Storage,
+          service workers, file systems and the HTTP cache, including the data of installed web apps
+          (Google sites included), so the next profile starts clean; cookies are removed separately,
+          keeping your Google account sign-in cookies unless you turned on "Profiles include the
+          Google sign-in". It never clears the extension's own data, passwords, history, downloads
+          or form data.
         </li>
         <li><strong>Scripting:</strong> to run the extension's own script inside those pages.</li>
         <li>
@@ -159,7 +218,13 @@
           few seconds.
         </li>
         <li>
-          <strong>Storage, side panel:</strong> the progress record above, and the panel itself.
+          <strong>Storage, side panel:</strong> the progress record and the unlocked vault key
+          above, and the panel itself.
+        </li>
+        <li>
+          <strong>Context menus:</strong> to add "Export this site", "Export all sites", "Import a
+          .cpanda file" and "Switch to profile" (listing your profile names once the vault has been
+          unlocked) to the right-click menu. They read nothing from the page.
         </li>
       </ul>
 
@@ -171,8 +236,9 @@
 
       <h2>Your control</h2>
       <p>
-        Nothing happens until you press Export or Import. Uninstalling the extension removes its
-        settings. Files you exported remain wherever you saved them; delete them when you no longer
+        Nothing happens until you press Export, Import or a profile button. "Delete every profile"
+        removes all saved profiles. Uninstalling the extension removes its settings and saved
+        profiles. Files you exported remain wherever you saved them; delete them when you no longer
         need them.
       </p>
 
